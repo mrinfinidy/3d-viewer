@@ -9,21 +9,44 @@ import {
     Switch,
     useColorModeValue,
 } from '@chakra-ui/react';
+import MyAlert from '../components/my-alert';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
 const Login = () => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [isMyAlertOpen, setMyAlertOpen] = React.useState(false);
+    const [alertTitle, setAlertTitle] = React.useState('');
+    const [alertMessage, setAlertMessage] = React.useState('');
 
     const submitLogin = (username: string, password: string) => {
-        let invalidLoginAlert: string = '';
-        invalidLoginAlert += username === '' ? 'Username is required' : '';
-        invalidLoginAlert += password === '' ? 'Password is required' : '';
-        if (invalidLoginAlert !== '') {
-            alert(invalidLoginAlert);
+        if (username && password) {
+            setAlertTitle('Success');
+            setAlertMessage('Login successful');
+            setMyAlertOpen(true);
         }
-        console.log('username:', username);
-        console.log('password:', password);
+
+        if (!username && !password) {
+            setAlertTitle('Error');
+            setAlertMessage('Username and password are required');
+            setMyAlertOpen(true);
+        }
+
+        if (!username && password) {
+            setAlertTitle('Error');
+            setAlertMessage('Username is required');
+            setMyAlertOpen(true);
+        }
+
+        if (username && !password) {
+            setAlertTitle('Error');
+            setAlertMessage('Password is required');
+            setMyAlertOpen(true);
+        }
+    }
+
+    const closeModal = () => {
+        setMyAlertOpen(false);
     }
 
     const formBackground = useColorModeValue('gray.100', 'gray.700');
@@ -59,6 +82,7 @@ const Login = () => {
                 >
                     Login
                 </Button>
+                <MyAlert title={alertTitle} message={alertMessage} isOpen={isMyAlertOpen} onClose={closeModal} />
             </Flex>
             <Flex mt={8}>
                 <ThemeToggleButton />
