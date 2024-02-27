@@ -72,6 +72,11 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     variant="filled"
                     mb={3}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            submitLogin(username, password);
+                        }
+                    }}
                 >
                 </Input>
                 <Input
@@ -80,15 +85,30 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     variant="filled"
                     mb={6}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            submitLogin(username, password);
+                        }
+                    }}
                 />
                 <Button 
                     colorScheme="pink" 
                     mb={6}
                     onClick={() => submitLogin(username, password)}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            submitLogin(username, password);
+                        }
+                    }}       
                 >
                     Login
                 </Button>
-                <MyAlert title={alertTitle} message={alertMessage} isOpen={isMyAlertOpen} onClose={closeModal} />
+                <MyAlert
+                    title={alertTitle}
+                    message={alertMessage}
+                    isOpen={isMyAlertOpen}
+                    onClose={closeModal}
+                />
             </Flex>
             <Flex mt={8}>
                 <ThemeToggleButton />
