@@ -1,8 +1,11 @@
-import { CircularProgress } from "@chakra-ui/react"
+import { CircularProgress } from "@chakra-ui/react";
+import { Html } from "@react-three/drei";
 
 const LoadingAnimation = () => {
     return (
-        <CircularProgress isIndeterminate color="green.300" />
+        <Html>
+            <CircularProgress isIndeterminate color="green.300" />
+        </Html>
     )
 }
 

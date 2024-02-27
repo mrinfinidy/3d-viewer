@@ -1,4 +1,5 @@
-import { Canvas, ThreeElements, useFrame } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
 import Model from './Model';
@@ -8,13 +9,13 @@ import Model from './Model';
 // }
 
 const Viewport = () => {
-    
+
     return (
-        <div style={{ width: "100vw", height: "100vh" }} >
         <Canvas
             frameloop='demand'
             camera={{ position: [0, 0, 3] }}
         >
+            <Suspense fallback={<LoadingAnimation />}>
                 <ambientLight intensity={1} />
                 <OrbitControls
                     enablePan={false}
@@ -22,8 +23,8 @@ const Viewport = () => {
                     enableRotate={true}
                 />
                 <Model modelPath='/models/shiba/scene.gltf' />
+            </Suspense>
         </Canvas>
-        </div>
     );
 };
 
