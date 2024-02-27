@@ -16,7 +16,11 @@ const Viewport = () => {
             camera={{ position: [0, 0, 3] }}
         >
                 <ambientLight intensity={1} />
-                <OrbitControls />
+                <OrbitControls
+                    enablePan={false}
+                    enableZoom={true}
+                    enableRotate={true}
+                />
                 <Model modelPath='/models/shiba/scene.gltf' />
         </Canvas>
         </div>
