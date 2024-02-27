@@ -12,7 +12,11 @@ import {
 import MyAlert from '../components/my-alert';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
-const Login = () => {
+interface LoginProps {
+    loginSuccess: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isMyAlertOpen, setMyAlertOpen] = React.useState(false);
@@ -20,10 +24,12 @@ const Login = () => {
     const [alertMessage, setAlertMessage] = React.useState('');
 
     const submitLogin = (username: string, password: string) => {
+        loginSuccess();
         if (username && password) {
-            setAlertTitle('Success');
-            setAlertMessage('Login successful');
-            setMyAlertOpen(true);
+            // setAlertTitle('Success');
+            // setAlertMessage('Login successful');
+            // setMyAlertOpen(true);
+            loginSuccess();
         }
 
         if (!username && !password) {
