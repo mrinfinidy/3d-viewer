@@ -1,10 +1,23 @@
-import { CircularProgress } from "@chakra-ui/react";
+import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import { Html } from "@react-three/drei";
 
-const LoadingAnimation = () => {
+interface LoadingAnimationProps {
+    progress: number
+}
+
+const LoadingAnimation: React.FC<LoadingAnimationProps> = (progress ) => {
     return (
-        <Html>
-            <CircularProgress isIndeterminate color="green.300" />
+        <Html center>
+            <CircularProgress isIndeterminate
+                color="hotpink"
+                size="10rem" 
+                thickness="0.2rem"
+            >
+                <CircularProgressLabel fontSize="1rem" >
+                    {progress.progress}%
+                </CircularProgressLabel>
+            </CircularProgress>
+
         </Html>
     )
 }

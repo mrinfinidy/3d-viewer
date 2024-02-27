@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useProgress } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
 import Model from './Model';
 
@@ -10,12 +10,14 @@ import Model from './Model';
 
 const Viewport = () => {
 
+    const { active, progress, errors, item, loaded, total } = useProgress();
+
     return (
         <Canvas
             frameloop='demand'
             camera={{ position: [0, 0, 3] }}
         >
-            <Suspense fallback={<LoadingAnimation />}>
+            <Suspense fallback={<LoadingAnimation progress={progress} />}>
                 <ambientLight intensity={1} />
                 <OrbitControls
                     enablePan={false}
