@@ -58,7 +58,8 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
     const formBackground = useColorModeValue('gray.100', 'gray.700');
 
     return (
-        <Flex h="100vh" direction="column" alignItems="center" justifyContent="center">
+        <>
+        <Flex h="95vh" direction="column" alignItems="center" justifyContent="center">
             <Flex
                 direction="column"
                 bg={formBackground}
@@ -110,10 +111,9 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     onClose={closeModal}
                 />
             </Flex>
-            <Flex mt={8}>
-                <ThemeToggleButton />
-            </Flex>
         </Flex>
+        <ThemeToggleButton />
+        </>
     );
 };
 

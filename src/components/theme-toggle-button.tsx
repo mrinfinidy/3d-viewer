@@ -20,6 +20,9 @@ const ThemeToggleButton = () => {
                   colorScheme="pink"
                   icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
                   onClick={toggleColorMode as () => void}
+                  position="absolute"
+                  top="5"
+                  left="5"
                 />
             </motion.div>
         </AnimatePresence>
