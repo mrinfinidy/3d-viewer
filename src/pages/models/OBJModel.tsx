@@ -12,6 +12,7 @@ const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
     useEffect(() => {
         const loader = new OBJLoader();
         loader.load(modelPath, (obj) => {
+            // Orbit around center of model
             const boundingBox = new THREE.Box3().setFromObject(obj);
             const boxCenter = new THREE.Vector3();
             boundingBox.getCenter(boxCenter);

@@ -4,6 +4,7 @@ import { OrbitControls, useProgress } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
 import GLBModel from './models/GLBModel';
 import OBJModel from './models/OBJModel';
+import STLModel from './models/STLModel';
 import ControlPanel from './ControlPanel';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
@@ -45,6 +46,10 @@ const Viewport = () => {
                 case 'obj':
                 case 'OBJ':
                     setModelComponent(<OBJModel modelPath={filePath} />);
+                    break;
+                case 'stl':
+                case 'STL':
+                    setModelComponent(<STLModel modelPath={filePath} />);
                     break;
                 default:
                     console.log('File type not supported', fileType);

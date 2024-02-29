@@ -17,7 +17,7 @@ const FileBrowser: React.FC<FileBrowserProps> = ({ inputRef, loadFilePath }) => 
             <Input
                 type="file"
                 multiple={false}
-                accept=".glb, .obj"
+                accept=".glb, .obj, .stl"
                 bgColor={useColorModeValue('white', 'gray.800')}
                 onChange={loadFilePath}
                 style={{display: 'none'}}
