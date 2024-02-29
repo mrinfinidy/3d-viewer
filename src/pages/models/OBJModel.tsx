@@ -12,6 +12,13 @@ const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
     useEffect(() => {
         const loader = new OBJLoader();
         loader.load(modelPath, (obj) => {
+            // Add texture to model
+            const material = new THREE.MeshNormalMaterial();
+            obj.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    child.material = material;
+                }
+            });
             // Orbit around center of model
             const boundingBox = new THREE.Box3().setFromObject(obj);
             const boxCenter = new THREE.Vector3();

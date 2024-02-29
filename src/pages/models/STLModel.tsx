@@ -12,7 +12,8 @@ const STLModel: React.FC<ModelProps> = ({ modelPath }) => {
     useEffect(() => {
         const loader = new STLLoader();
         loader.load(modelPath, (geometry) => {
-            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            // Add textue to the model
+            const material = new THREE.MeshNormalMaterial();
             const mesh = new THREE.Mesh(geometry, material);
             // Orbit around center of the model
             const boundingBox = new THREE.Box3().setFromObject(mesh);
