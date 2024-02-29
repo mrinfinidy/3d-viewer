@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import * as THREE from 'three';
 
@@ -8,16 +8,20 @@ interface ModelProps {
 
 const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
     const loader = new OBJLoader();
-    const modelRef = React.useRef<THREE.Object3D>();
 
-    console.log('model:', modelRef.current);
-    loader.load(modelPath, (obj) => {
-        modelRef.current = obj;
-    });
+    const [model, setModel] = useState<THREE.Object3D | undefined>(undefined);
+
+    useEffect(() => {
+        const loader = new OBJLoader();
+        loader.load(modelPath, (obj) => {
+            setModel(obj);
+        });
+    }, [modelPath]);
+
 
     return (
         <>
-            {modelRef.current && <primitive object={modelRef.current} />}
+            { model && <primitive object={model} /> }
         </>
     );
 };
