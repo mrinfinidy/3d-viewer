@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import * as THREE from 'three';
 
@@ -7,19 +7,21 @@ interface ModelProps {
 }
 
 const STLModel: React.FC<ModelProps> = ({ modelPath }) => {
-    const loader = new STLLoader();
+    const [model, setModel] = useState<THREE.Mesh | undefined>();
 
-    const modelRef = React.useRef<THREE.Mesh>();
+    useEffect(() => {
+        const loader = new STLLoader();
+        loader.load(modelPath, (geometry) => {
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const mesh = new THREE.Mesh(geometry, material);
+            setModel(mesh);
+        });
+    }, [modelPath]);
 
-    loader.load(modelPath, (geometry) => {
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const mesh = new THREE.Mesh(geometry, material);
-        modelRef.current = mesh;
-    });
 
     return (
         <>
-            {modelRef.current && <primitive object={modelRef.current} />}
+            { model && <primitive object={model} />}
         </>
     );
 }

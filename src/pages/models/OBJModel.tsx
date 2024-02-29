@@ -7,13 +7,16 @@ interface ModelProps {
 }
 
 const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
-    const loader = new OBJLoader();
-
     const [model, setModel] = useState<THREE.Object3D | undefined>(undefined);
 
     useEffect(() => {
         const loader = new OBJLoader();
         loader.load(modelPath, (obj) => {
+            const boundingBox = new THREE.Box3().setFromObject(obj);
+            const boxCenter = new THREE.Vector3();
+            boundingBox.getCenter(boxCenter);
+            obj.position.sub(boxCenter);
+
             setModel(obj);
         });
     }, [modelPath]);
