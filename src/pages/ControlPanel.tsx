@@ -7,7 +7,12 @@ import FileBrowser from '../components/file-browser';
 // gray.200 => rgba(234, 234, 234, 1)
 // gray.700 => rgba(28, 28, 28, 1)
 
-const ControlPanel = () => {
+interface ControlPanelProps {
+    inputRef: React.RefObject<HTMLInputElement>;
+    loadFilePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath }) => {
 
     return (
         <Box
@@ -23,15 +28,16 @@ const ControlPanel = () => {
             borderRadius="lg"
             bgColor={useColorModeValue('rgba(234, 234, 234, 0.95)', 'rgba(45, 55, 72, 0.95)')}
             color={useColorModeValue('pink.600', 'pink.200')}
+            overflow="scroll"
         >
             <Flex justify="center"
                 align="center"
                 direction="column"
                 mt={2}
             >
-                <FileBrowser />
+                <FileBrowser inputRef={inputRef} loadFilePath={loadFilePath} />
                 <Text fontSize="sm" colorScheme="gray">
-                    *File type must be .gltf or .glb
+                    *File type must be .glb
                 </Text>
             </Flex>
         </Box>
