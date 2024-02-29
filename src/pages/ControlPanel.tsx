@@ -10,9 +10,10 @@ import FileBrowser from '../components/file-browser';
 interface ControlPanelProps {
     inputRef: React.RefObject<HTMLInputElement>;
     loadFilePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    fileName: string;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath }) => {
+const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
 
     return (
         <Box
@@ -38,6 +39,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath }) =
                 <FileBrowser inputRef={inputRef} loadFilePath={loadFilePath} />
                 <Text fontSize="sm" colorScheme="gray">
                     *File type must be .glb
+                </Text>
+                <Text fontSize="md" colorScheme="gray" mt={2}>
+                    {fileName}
                 </Text>
             </Flex>
         </Box>

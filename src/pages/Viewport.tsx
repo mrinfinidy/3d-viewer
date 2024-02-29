@@ -2,7 +2,7 @@ import React, { Suspense, ChangeEvent, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
-import Model from './Model';
+import GLBModel from './models/GLBModel';
 import ControlPanel from './ControlPanel';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
@@ -11,16 +11,43 @@ const Viewport = () => {
     // Use for loading animation
     const { progress } = useProgress();
 
-    // Pass file path to Model component
+    // Get and convert file to be passed to Model
+    // Get file type
+    // Get file name
     const [filePath, setFilePath] = React.useState<string | null>(null);
+    const [fileType, setFileType] = React.useState<string>('');
+    const [fileName, setFileName] = React.useState<string>('');
+    const [modelComponent, setModelComponent] = React.useState<JSX.Element | null>(null);
     const inputRef = React.useRef<HTMLInputElement | null>(null);
+    
+
     const loadFilePath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             const selectedFilePath = URL.createObjectURL;
             setFilePath(URL.createObjectURL(selectedFile));
+    
+            const fileName = selectedFile.name.split('.').slice(0, -1).join('.');
+            setFileName(fileName);
+                
+            const fileType = selectedFile.name.split('.').pop();
+            fileType && setFileType(fileType);
         }        
-    }
+    };
+
+    useEffect(() => {
+        if (filePath) {
+            switch (fileType) {
+                case 'glb':
+                    setModelComponent(<GLBModel modelPath={filePath} />);
+                    break;
+                default:
+                    setModelComponent(null);
+            }
+        }
+    }, [filePath]);
+
+        
 
     return (
         <>
@@ -31,7 +58,7 @@ const Viewport = () => {
                 
             >
                 <Suspense fallback={<LoadingAnimation progress={progress} />}>
-                    { filePath && <Model modelPath={filePath} /> }
+                    { modelComponent }
                     <ambientLight intensity={1} />
                     <OrbitControls
                         enablePan={false}
@@ -40,7 +67,7 @@ const Viewport = () => {
                     />
                 </Suspense>
             </Canvas>
-            <ControlPanel inputRef={inputRef} loadFilePath={loadFilePath} />
+            <ControlPanel inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} />
             <ThemeToggleButton />
         </>
     );
