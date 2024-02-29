@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
 import GLBModel from './models/GLBModel';
+import OBJModel from './models/OBJModel';
 import ControlPanel from './ControlPanel';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
@@ -24,7 +25,6 @@ const Viewport = () => {
     const loadFilePath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
-            const selectedFilePath = URL.createObjectURL;
             setFilePath(URL.createObjectURL(selectedFile));
     
             const fileName = selectedFile.name.split('.').slice(0, -1).join('.');
@@ -39,9 +39,15 @@ const Viewport = () => {
         if (filePath) {
             switch (fileType) {
                 case 'glb':
+                case 'GLB':
                     setModelComponent(<GLBModel modelPath={filePath} />);
                     break;
+                case 'obj':
+                case 'OBJ':
+                    setModelComponent(<OBJModel modelPath={filePath} />);
+                    break;
                 default:
+                    console.log('File type not supported', fileType);
                     setModelComponent(null);
             }
         }
