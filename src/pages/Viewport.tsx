@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
 import LoadingAnimation from '../components/loading-animation';
 import GLBModel from './models/GLBModel';
-import ControlPanelHorizontal from './ControlPanelHorizontal';
+import ControlPanelLandscape from './ControlPanelLandscape';
 import ThemeToggleButton from '../components/theme-toggle-button';
 import useCheckOrientationVertical from '../components/check-screen-orientation';
 
@@ -70,7 +70,7 @@ const Viewport = () => {
             </Canvas>
             { isVertical ? 
                 null : 
-                <ControlPanelHorizontal inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> 
+                <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> 
             }
             <ThemeToggleButton />
         </>
