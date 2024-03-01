@@ -13,7 +13,7 @@ interface ControlPanelProps {
     fileName: string | null;
 }
 
-const ControlPanelLandscape: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
+const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
 
     if (fileName === null) {
         fileName = "Error loading file";
@@ -21,15 +21,15 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({ inputRef, loadFile
 
     return (
         <Box
-            width="20vw"
-            height="90vh"
+            width="90vw"
+            height="20vh"
             position="absolute"
-            top="50%"
-            right="0"
-            transform="translateY(-50%)"
+            left="50%"
+            transform="translateX(-50%)"
+            bottom="0"
             zIndex="2"  // Set a higher zIndex to ensure it appears on top
             p={2}
-            mr={4}
+            mb={4}
             border="1px"
             borderColor={useColorModeValue('pink.600', 'pink.200')}
             borderRadius="lg"
@@ -37,22 +37,29 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({ inputRef, loadFile
             color={useColorModeValue('pink.600', 'pink.200')}
             overflow="scroll"
         >
-            <Flex justify="center"
+            <Flex 
+                justify="left"
                 align="center"
-                direction="column"
-                my={2}
+                direction="row"
+                mx={2}
             >
-                <FileBrowser inputRef={inputRef} loadFilePath={loadFilePath} />
-                <Text fontSize="sm" colorScheme="gray">
-                    *File type must be .glb, .obj, or .stl
-
-                </Text>
-                <Text fontSize="md" colorScheme="gray" mt={2}>
-                    {fileName}
-                </Text>
+                <Flex
+                    justify="center"
+                    align="center"
+                    direction="column"
+                >
+                    <FileBrowser inputRef={inputRef} loadFilePath={loadFilePath} />
+                    <Text fontSize="sm" colorScheme="gray">
+                        *File type must be .glb, .obj, or .stl
+                    </Text>
+                    <Text fontSize="md" colorScheme="gray">
+                        {fileName}
+                    </Text>
+                </Flex>
             </Flex>
         </Box>
     )
 };
 
-export default ControlPanelLandscape;
+export default ControlPanelPortrait;
+

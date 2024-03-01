@@ -7,6 +7,7 @@ import OBJModel from './models/OBJModel';
 import STLModel from './models/STLModel';
 import DefaultModel from './models/DefaultModel';
 import ControlPanelLandscape from './ControlPanelLandscape';
+import ControlPanelPortrait from './ControlPanelPortrait';
 import ThemeToggleButton from '../components/theme-toggle-button';
 import useCheckOrientationVertical from '../components/check-screen-orientation';
 
@@ -82,7 +83,7 @@ const Viewport = () => {
                 </Suspense>
             </Canvas>
             { isVertical ? 
-                null : 
+                <ControlPanelPortrait inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> :
                 <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> 
             }
             <ThemeToggleButton />
