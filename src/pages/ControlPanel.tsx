@@ -10,10 +10,14 @@ import FileBrowser from '../components/file-browser';
 interface ControlPanelProps {
     inputRef: React.RefObject<HTMLInputElement>;
     loadFilePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    fileName: string;
+    fileName: string | null;
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
+
+    if (fileName === null) {
+        fileName = "Error loading file";
+    }
 
     return (
         <Box

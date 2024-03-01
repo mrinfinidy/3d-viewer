@@ -5,6 +5,7 @@ import LoadingAnimation from '../components/loading-animation';
 import GLBModel from './models/GLBModel';
 import OBJModel from './models/OBJModel';
 import STLModel from './models/STLModel';
+import DefaultModel from './models/DefaultModel';
 import ControlPanel from './ControlPanel';
 import ThemeToggleButton from '../components/theme-toggle-button';
 
@@ -18,7 +19,7 @@ const Viewport = () => {
     // Get file name
     const [filePath, setFilePath] = React.useState<string | null>(null);
     const [fileType, setFileType] = React.useState<string>('');
-    const [fileName, setFileName] = React.useState<string>('');
+    const [fileName, setFileName] = React.useState<string | null>('');
     const [modelComponent, setModelComponent] = React.useState<JSX.Element | null>(null);
     const inputRef = React.useRef<HTMLInputElement | null>(null);
     
@@ -52,8 +53,9 @@ const Viewport = () => {
                     setModelComponent(<STLModel modelPath={filePath} />);
                     break;
                 default:
-                    console.log('File type not supported', fileType);
-                    setModelComponent(null);
+                    setModelComponent(<DefaultModel />);
+                    setFileName(null);
+                    break;
             }
         }
     }, [filePath]);
