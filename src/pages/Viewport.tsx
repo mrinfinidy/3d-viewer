@@ -24,7 +24,8 @@ const Viewport = () => {
     const [fileName, setFileName] = React.useState<string | null>('');
     const [modelComponent, setModelComponent] = React.useState<JSX.Element | null>(null);
     const inputRef = React.useRef<HTMLInputElement | null>(null);
-    
+    // Only auto rotate when default model is loaded
+    const [autoRotate, setAutoRotate] = React.useState<boolean>(true);
 
     const loadFilePath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
@@ -41,6 +42,7 @@ const Viewport = () => {
 
     useEffect(() => {
         if (filePath) {
+            setAutoRotate(false);
             switch (fileType) {
                 case 'glb':
                 case 'GLB':
@@ -57,6 +59,7 @@ const Viewport = () => {
                 default:
                     setModelComponent(<DefaultModel />);
                     setFileName(null);
+                    setAutoRotate(true);
                     break;
             }
         }
@@ -79,6 +82,8 @@ const Viewport = () => {
                         enablePan={false}
                         enableZoom={true}
                         enableRotate={true}
+                        autoRotate={autoRotate}
+                        autoRotateSpeed={5}
                     />
                 </Suspense>
             </Canvas>
