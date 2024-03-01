@@ -25,7 +25,7 @@ const Viewport = () => {
     const [modelComponent, setModelComponent] = React.useState<JSX.Element | null>(null);
     const inputRef = React.useRef<HTMLInputElement | null>(null);
     // Only auto rotate when default model is loaded
-    const [autoRotate, setAutoRotate] = React.useState<boolean>(true);
+    const [autoRotate, setAutoRotate] = React.useState<boolean>(false);
 
     const loadFilePath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];

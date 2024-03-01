@@ -6,8 +6,6 @@ const DefaultModel = () => {
     const model = useGLTF('/models/sad-ghost.glb');
     // Scale the model down
     model.scene.scale.set(0.05, 0.05, 0.05);
-    // Set initial rotation, useful for auto-rotation
-    model.scene.rotation.y = Math.PI / 0.8;
     // Orbit around center of the model
     const boundingBox = new THREE.Box3().setFromObject(model.scene);
     const boxCenter = new THREE.Vector3();
