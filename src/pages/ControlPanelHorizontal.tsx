@@ -13,7 +13,7 @@ interface ControlPanelProps {
     fileName: string;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
+const ControlPanelHorizontal: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
 
     return (
         <Box
@@ -50,4 +50,4 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fil
     )
 };
 
-export default ControlPanel;
+export default ControlPanelHorizontal;
