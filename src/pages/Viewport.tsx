@@ -6,8 +6,9 @@ import GLBModel from './models/GLBModel';
 import OBJModel from './models/OBJModel';
 import STLModel from './models/STLModel';
 import DefaultModel from './models/DefaultModel';
-import ControlPanel from './ControlPanel';
+import ControlPanelLandscape from './ControlPanelLandscape';
 import ThemeToggleButton from '../components/theme-toggle-button';
+import useCheckOrientationVertical from '../components/check-screen-orientation';
 
 const Viewport = () => {
     
@@ -60,7 +61,7 @@ const Viewport = () => {
         }
     }, [filePath]);
 
-        
+    const isVertical = useCheckOrientationVertical();
 
     return (
         <>
@@ -80,7 +81,10 @@ const Viewport = () => {
                     />
                 </Suspense>
             </Canvas>
-            <ControlPanel inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} />
+            { isVertical ? 
+                null : 
+                <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> 
+            }
             <ThemeToggleButton />
         </>
     );
