@@ -1,5 +1,7 @@
 import { Box, Button, Input, Flex, useColorModeValue, Text } from '@chakra-ui/react'
 import FileBrowser from '../components/file-browser';
+import { useEffect, useRef } from 'react';
+import TextureLoader from '../components/texture-loader';
 
 // pink.600 => rbga(233, 30, 99, 1)
 // pink.200 => rgba(244, 143, 177, 1)
@@ -11,12 +13,20 @@ interface ControlPanelProps {
     inputRef: React.RefObject<HTMLInputElement>;
     loadFilePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
     fileName: string | null;
+    fileType: string | null;
 }
 
-const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName }) => {
+const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName, fileType }) => {
 
     if (fileName === null) {
         fileName = "Error loading file";
+    }
+
+    const textureNeededRef = useRef<boolean>(false);
+    if (fileType === "obj" || fileType === "stl") {
+        textureNeededRef.current = true;
+    } else {
+        textureNeededRef.current = false;
     }
 
     return (
@@ -55,6 +65,14 @@ const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFileP
                     <Text fontSize="md" colorScheme="gray">
                         {fileName}
                     </Text>
+                </Flex>
+                <Flex
+                    ml={4}
+                    justify="center"
+                    align="center"
+                    direction="column"
+                >
+                    { textureNeededRef.current && <TextureLoader /> }
                 </Flex>
             </Flex>
         </Box>

@@ -82,8 +82,8 @@ const Viewport = () => {
                 </Suspense>
             </Canvas>
             { isVertical ? 
-                <ControlPanelPortrait inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> :
-                <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} /> 
+                <ControlPanelPortrait inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} fileType={fileType} /> :
+                <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} fileType={fileType} /> 
             }
             <ThemeToggleButton />
         </>
