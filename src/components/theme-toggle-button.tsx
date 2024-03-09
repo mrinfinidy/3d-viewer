@@ -8,8 +8,8 @@ const ThemeToggleButton = () => {
     return (
         <AnimatePresence >
             <motion.div
-                // style={{ display: 'inline-block' }}
-                key={useColorModeValue('light', 'dark')}
+                style={{ display: 'inline-block' }}
+                // key={useColorModeValue('light', 'dark')}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ opacity: 0 }}
