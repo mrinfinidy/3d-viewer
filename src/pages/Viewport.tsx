@@ -33,6 +33,13 @@ const Viewport = () => {
     // Get texture
     const [texturePath, setTexturePath] = React.useState<string | null>(null);
     const textureInputRef = React.useRef<HTMLInputElement | null>(null);
+    // Model dimensions
+    interface dimensionsObject {
+        width: number;
+        height: number;
+        depth: number;
+    };
+    const [modelDimensions, setModelDimensions] = React.useState<dimensionsObject | null>(null);
 
     const loadModelPath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
@@ -58,7 +65,7 @@ const Viewport = () => {
         if (modelPath) {
             switch (modelType) {
                 case 'glb':
-                    setModelComponent(<GLBModel modelPath={modelPath} />);
+                    setModelComponent(<GLBModel modelPath={modelPath} setModelDimensions={setModelDimensions} />);
                     break;
                 case 'obj':
                     setModelComponent(<OBJModel modelPath={modelPath} texturePath={texturePath} />);
@@ -119,6 +126,7 @@ const Viewport = () => {
                     loadTexturePath={loadTexturePath}
                     modelName={modelName}
                     modelType={modelType}
+                    modelDimensions={modelDimensions}
                 /> 
             }
             <Flex

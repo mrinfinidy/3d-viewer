@@ -4,9 +4,10 @@ import * as THREE from 'three';
 
 interface ModelProps {
     modelPath: string;
+    setModelDimensions: React.Dispatch<React.SetStateAction<{ width: number; height: number; depth: number } | null>>;
 }
 
-const GLBModel: React.FC<ModelProps> = ({ modelPath }) => {
+const GLBModel: React.FC<ModelProps> = ({ modelPath, setModelDimensions }) => {
 
     const model = useGLTF(modelPath);
     // Orbit around the center of the model
@@ -14,6 +15,13 @@ const GLBModel: React.FC<ModelProps> = ({ modelPath }) => {
     const boxCenter = new THREE.Vector3();
     boundingBox.getCenter(boxCenter);                                   
     model.scene.position.sub(boxCenter);
+
+    const dimension = {
+        width: boundingBox.max.x - boundingBox.min.x,
+        height: boundingBox.max.y - boundingBox.min.y,
+        depth: boundingBox.max.z - boundingBox.min.z
+    };
+    setModelDimensions(dimension);
 
     return (
         <>
