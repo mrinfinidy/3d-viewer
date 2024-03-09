@@ -87,11 +87,11 @@ const Viewport = () => {
                 <Suspense fallback={<LoadingAnimation progress={progress} />}>
                     { backgroundOn &&
                         <Stars
-                            radius={100} // Controls the size of the stars
-                            depth={50} // Controls the depth of the star field
-                            count={5000} // Number of stars
-                            factor={4} // Controls the dispersion of the stars
-                            saturation={0} // Saturation of the stars (0 for grayscale, 1 for full color)
+                            radius={80} 
+                            depth={50}  
+                            count={5000} 
+                            factor={4}
+                            saturation={0}
                         />
                     }
                     { modelComponent }
