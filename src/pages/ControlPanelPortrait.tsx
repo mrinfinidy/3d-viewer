@@ -1,7 +1,6 @@
 import { Box, Button, Input, Flex, useColorModeValue, Text } from '@chakra-ui/react'
 import FileBrowser from '../components/file-browser';
 import { useEffect, useRef } from 'react';
-import TextureLoader from '../components/texture-loader';
 
 // pink.600 => rbga(233, 30, 99, 1)
 // pink.200 => rgba(244, 143, 177, 1)
@@ -10,20 +9,29 @@ import TextureLoader from '../components/texture-loader';
 // gray.700 => rgba(28, 28, 28, 1)
 
 interface ControlPanelProps {
-    inputRef: React.RefObject<HTMLInputElement>;
-    loadFilePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    fileName: string | null;
-    fileType: string | null;
+    modelInputRef: React.RefObject<HTMLInputElement>;
+    loadModelPath: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    textureInputRef: React.RefObject<HTMLInputElement>;
+    loadTexturePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    modelName: string | null;
+    modelType: string | null;
 }
 
-const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFilePath, fileName, fileType }) => {
+const ControlPanelPortrait: React.FC<ControlPanelProps> = ({
+    modelInputRef,
+    loadModelPath,
+    textureInputRef,
+    loadTexturePath,
+    modelName,
+    modelType
+}) => {
 
-    if (fileName === null) {
-        fileName = "Error loading file";
+    if (modelName === null) {
+        modelName = "Error loading file";
     }
 
     const textureNeededRef = useRef<boolean>(false);
-    if (fileType === "obj" || fileType === "stl") {
+    if (modelType === "obj" || modelType === "stl") {
         textureNeededRef.current = true;
     } else {
         textureNeededRef.current = false;
@@ -58,12 +66,17 @@ const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFileP
                     align="center"
                     direction="column"
                 >
-                    <FileBrowser inputRef={inputRef} loadFilePath={loadFilePath} />
+                    <FileBrowser
+                        inputRef={modelInputRef}
+                        loadFilePath={loadModelPath} 
+                        acceptedTypes={".glb, .obj, .stl"}
+                        buttonText={"Upload 3D Model"}
+                    />
                     <Text fontSize="sm" colorScheme="gray">
                         *File type must be .glb, .obj, or .stl
                     </Text>
                     <Text fontSize="md" colorScheme="gray">
-                        {fileName}
+                        {modelName}
                     </Text>
                 </Flex>
                 <Flex
@@ -72,7 +85,14 @@ const ControlPanelPortrait: React.FC<ControlPanelProps> = ({ inputRef, loadFileP
                     align="center"
                     direction="column"
                 >
-                    { textureNeededRef.current && <TextureLoader /> }
+                    {   textureNeededRef.current && 
+                        <FileBrowser
+                            inputRef={textureInputRef}
+                            loadFilePath={loadTexturePath}
+                            acceptedTypes={".png, .jpg, .jpeg"}
+                            buttonText={"Load Texture"}
+                        />
+                    }
                 </Flex>
             </Flex>
         </Box>

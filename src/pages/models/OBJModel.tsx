@@ -4,16 +4,24 @@ import * as THREE from 'three';
 
 interface ModelProps {
     modelPath: string;
+    texturePath: string | null;
+
 }
 
-const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
+const OBJModel: React.FC<ModelProps> = ({ modelPath, texturePath }) => {
     const [model, setModel] = useState<THREE.Object3D | undefined>(undefined);
 
     useEffect(() => {
         const loader = new OBJLoader();
         loader.load(modelPath, (obj) => {
             // Add texture to model
-            const material = new THREE.MeshNormalMaterial();
+            let material: any;
+            if (texturePath) {
+                const texture = new THREE.TextureLoader().load(texturePath);
+                material = new THREE.MeshBasicMaterial({ map: texture })
+            } else {
+                material = new THREE.MeshNormalMaterial();
+            }
             obj.traverse((child) => {
                 if (child instanceof THREE.Mesh) {
                     child.material = material;
@@ -27,7 +35,7 @@ const OBJModel: React.FC<ModelProps> = ({ modelPath }) => {
 
             setModel(obj);
         });
-    }, [modelPath]);
+    }, [modelPath, texturePath]);
 
 
     return (

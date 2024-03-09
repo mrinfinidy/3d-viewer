@@ -4,9 +4,11 @@ import { Button, Input, useColorModeValue } from '@chakra-ui/react';
 interface FileBrowserProps {
     inputRef: React.RefObject<HTMLInputElement>;
     loadFilePath: (event: ChangeEvent<HTMLInputElement>) => void;
+    acceptedTypes: string,
+    buttonText: string
 }
 
-const FileBrowser: React.FC<FileBrowserProps> = ({ inputRef, loadFilePath }) => {
+const FileBrowser: React.FC<FileBrowserProps> = ({ inputRef, loadFilePath, acceptedTypes, buttonText }) => {
 
     const openFileBrowser = () => {
         inputRef.current?.click();
@@ -17,7 +19,7 @@ const FileBrowser: React.FC<FileBrowserProps> = ({ inputRef, loadFilePath }) => 
             <Input
                 type="file"
                 multiple={false}
-                accept=".glb, .obj, .stl"
+                accept={ acceptedTypes }
                 bgColor={useColorModeValue('white', 'gray.800')}
                 onChange={loadFilePath}
                 style={{display: 'none'}}
@@ -29,7 +31,7 @@ const FileBrowser: React.FC<FileBrowserProps> = ({ inputRef, loadFilePath }) => 
                 variant="outline"
                 marginY={2}
             >
-                Upload 3D Model
+                { buttonText }
             </Button>
         </>
     )

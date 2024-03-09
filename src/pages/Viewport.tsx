@@ -19,47 +19,54 @@ const Viewport = () => {
     // Get and convert file to be passed to Model
     // Get file type
     // Get file name
-    const [filePath, setFilePath] = React.useState<string | null>(null);
-    const [fileType, setFileType] = React.useState<string>('');
-    const [fileName, setFileName] = React.useState<string | null>('');
+    const [modelPath, setModelPath] = React.useState<string | null>(null);
+    const [modelType, setModelType] = React.useState<string>('');
+    const [modelName, setModelName] = React.useState<string | null>('');
     const [modelComponent, setModelComponent] = React.useState<JSX.Element | null>(null);
-    const inputRef = React.useRef<HTMLInputElement | null>(null);
+    const modelInputRef = React.useRef<HTMLInputElement | null>(null);
+    // Get texture
+    const [texturePath, setTexturePath] = React.useState<string | null>(null);
+    const textureInputRef = React.useRef<HTMLInputElement | null>(null);
 
-    const loadFilePath = (event: ChangeEvent<HTMLInputElement>) => {
+    const loadModelPath = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
-            setFilePath(URL.createObjectURL(selectedFile));
+            setModelPath(URL.createObjectURL(selectedFile));
     
             const fileName = selectedFile.name.split('.').slice(0, -1).join('.');
-            setFileName(fileName);
+            setModelName(fileName);
                 
-            const fileType = selectedFile.name.split('.').pop();
-            fileType && setFileType(fileType);
+            const fileType = selectedFile.name.split('.').pop()?.toLowerCase();
+            fileType && setModelType(fileType);
         }        
     };
 
+    const loadTexturePath = (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (selectedFile) {
+            setTexturePath(URL.createObjectURL(selectedFile));
+        }
+    }
+
     useEffect(() => {
-        if (filePath) {
-            switch (fileType) {
+        if (modelPath) {
+            switch (modelType) {
                 case 'glb':
-                case 'GLB':
-                    setModelComponent(<GLBModel modelPath={filePath} />);
+                    setModelComponent(<GLBModel modelPath={modelPath} />);
                     break;
                 case 'obj':
-                case 'OBJ':
-                    setModelComponent(<OBJModel modelPath={filePath} />);
+                    setModelComponent(<OBJModel modelPath={modelPath} texturePath={texturePath} />);
                     break;
                 case 'stl':
-                case 'STL':
-                    setModelComponent(<STLModel modelPath={filePath} />);
+                    setModelComponent(<STLModel modelPath={modelPath} texturePath={texturePath} />);
                     break;
                 default:
                     setModelComponent(<DefaultModel />);
-                    setFileName(null);
+                    setModelName(null);
                     break;
             }
         }
-    }, [filePath]);
+    }, [modelPath, texturePath]);
 
     const isVertical = useCheckOrientationVertical();
 
@@ -82,8 +89,22 @@ const Viewport = () => {
                 </Suspense>
             </Canvas>
             { isVertical ? 
-                <ControlPanelPortrait inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} fileType={fileType} /> :
-                <ControlPanelLandscape inputRef={inputRef} loadFilePath={loadFilePath} fileName={fileName} fileType={fileType} /> 
+                <ControlPanelPortrait 
+                    modelInputRef={modelInputRef}
+                    loadModelPath={loadModelPath}
+                    textureInputRef={textureInputRef}
+                    loadTexturePath={loadTexturePath}
+                    modelName={modelName}
+                    modelType={modelType}
+                /> :
+                <ControlPanelLandscape
+                    modelInputRef={modelInputRef}
+                    loadModelPath={loadModelPath}
+                    textureInputRef={textureInputRef}
+                    loadTexturePath={loadTexturePath}
+                    modelName={modelName}
+                    modelType={modelType}
+                /> 
             }
             <ThemeToggleButton />
         </>
