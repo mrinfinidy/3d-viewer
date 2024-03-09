@@ -56,7 +56,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
         setMyAlertOpen(false);
     }
 
-    const formBackground = useColorModeValue('gray.100', 'gray.700');
+    const formBackground = useColorModeValue('pink.100', 'gray.700');
 
     return (
         <>

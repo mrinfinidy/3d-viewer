@@ -51,7 +51,7 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
             border="1px"
             borderColor={useColorModeValue('pink.600', 'pink.200')}
             borderRadius="lg"
-            bgColor={useColorModeValue('rgba(234, 234, 234, 0.95)', 'rgba(45, 55, 72, 0.95)')}
+            bgColor={useColorModeValue('rgba(254, 215, 226, 0.95)', 'rgba(45, 55, 72, 0.95)')}
             color={useColorModeValue('pink.600', 'pink.200')}
             overflow="scroll"
         >
