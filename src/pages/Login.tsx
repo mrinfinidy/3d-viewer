@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Box,
     Flex,
     Heading,
     Input,
@@ -112,7 +113,10 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                 />
             </Flex>
         </Flex>
-        <ThemeToggleButton />
+        <Box position="absolute" top="5" left="5">
+            <ThemeToggleButton />
+        </Box>
+
         </>
     );
 };

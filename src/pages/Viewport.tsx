@@ -1,6 +1,7 @@
 import React, { Suspense, ChangeEvent, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
+import { Flex, Box } from '@chakra-ui/react';
 import LoadingAnimation from '../components/loading-animation';
 import GLBModel from './models/GLBModel';
 import OBJModel from './models/OBJModel';
@@ -10,8 +11,13 @@ import ControlPanelLandscape from './ControlPanelLandscape';
 import ControlPanelPortrait from './ControlPanelPortrait';
 import ThemeToggleButton from '../components/theme-toggle-button';
 import useCheckOrientationVertical from '../components/check-screen-orientation';
+import BackgroundTogglerButton from '../components/background-toggler-button';
+import { Stars } from '@react-three/drei';
 
 const Viewport = () => {
+
+    // Background Toggler
+    const [backgroundOn, setBackgroundOn] = React.useState<boolean>(false);
     
     // Use for loading animation
     const { progress } = useProgress();
@@ -79,6 +85,15 @@ const Viewport = () => {
                 
             >
                 <Suspense fallback={<LoadingAnimation progress={progress} />}>
+                    { backgroundOn &&
+                        <Stars
+                            radius={100} // Controls the size of the stars
+                            depth={50} // Controls the depth of the star field
+                            count={5000} // Number of stars
+                            factor={4} // Controls the dispersion of the stars
+                            saturation={0} // Saturation of the stars (0 for grayscale, 1 for full color)
+                        />
+                    }
                     { modelComponent }
                     <ambientLight intensity={1} />
                     <OrbitControls
@@ -106,7 +121,18 @@ const Viewport = () => {
                     modelType={modelType}
                 /> 
             }
-            <ThemeToggleButton />
+            <Flex
+                justify="center"
+                align="center"
+                direction="row"
+            >
+                <Box position="absolute" top="5" left="5">
+                    <ThemeToggleButton />
+                </Box>
+                <Box position="absolute" top="5" left="20">
+                    <BackgroundTogglerButton backgroundOn={backgroundOn} setBackgroundOn={setBackgroundOn} />
+                </Box>
+            </Flex>
         </>
     );
 };
