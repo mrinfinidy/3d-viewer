@@ -68,10 +68,10 @@ const Viewport = () => {
                     setModelComponent(<GLBModel modelPath={modelPath} setModelDimensions={setModelDimensions} />);
                     break;
                 case 'obj':
-                    setModelComponent(<OBJModel modelPath={modelPath} texturePath={texturePath} />);
+                    setModelComponent(<OBJModel modelPath={modelPath} texturePath={texturePath} setModelDimensions={setModelDimensions} />);
                     break;
                 case 'stl':
-                    setModelComponent(<STLModel modelPath={modelPath} texturePath={texturePath} />);
+                    setModelComponent(<STLModel modelPath={modelPath} texturePath={texturePath} setModelDimensions={setModelDimensions} />);
                     break;
                 default:
                     setModelComponent(<DefaultModel />);
@@ -118,6 +118,7 @@ const Viewport = () => {
                     loadTexturePath={loadTexturePath}
                     modelName={modelName}
                     modelType={modelType}
+                    modelDimensions={modelDimensions}
                 /> :
                 <ControlPanelLandscape
                     modelInputRef={modelInputRef}

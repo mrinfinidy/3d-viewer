@@ -15,6 +15,12 @@ interface ControlPanelProps {
     loadTexturePath: (event: React.ChangeEvent<HTMLInputElement>) => void;
     modelName: string | null;
     modelType: string | null;
+        modelDimensions: {
+        width: number;
+        height: number;
+        depth: number;
+    } | null;
+
 }
 
 const ControlPanelPortrait: React.FC<ControlPanelProps> = ({
@@ -23,7 +29,8 @@ const ControlPanelPortrait: React.FC<ControlPanelProps> = ({
     textureInputRef,
     loadTexturePath,
     modelName,
-    modelType
+    modelType,
+    modelDimensions
 }) => {
 
     if (modelName === null) {
@@ -93,6 +100,22 @@ const ControlPanelPortrait: React.FC<ControlPanelProps> = ({
                             buttonText={"Load Texture"}
                         />
                     }
+                </Flex>
+                <Flex
+                    ml={4}
+                    justify="center"
+                    align="center"
+                    direction="column"
+                >
+                    <Text fontSize="md" colorScheme="gray" mt={2}>
+                        { modelDimensions && "Width: " + modelDimensions.width } 
+                    </Text>
+                    <Text fontSize="md" colorScheme="gray" mt={2}>
+                        { modelDimensions && "Height: " + modelDimensions.height }
+                    </Text>
+                    <Text fontSize="md" colorScheme="gray" mt={2}>
+                        { modelDimensions && "Depth: " + modelDimensions.depth }
+                    </Text>
                 </Flex>
             </Flex>
         </Box>

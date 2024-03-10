@@ -5,9 +5,10 @@ import * as THREE from 'three';
 interface ModelProps {
     modelPath: string;
     texturePath: string | null;
+    setModelDimensions: React.Dispatch<React.SetStateAction<{ width: number; height: number; depth: number } | null>>;
 }
 
-const STLModel: React.FC<ModelProps> = ({ modelPath, texturePath }) => {
+const STLModel: React.FC<ModelProps> = ({ modelPath, texturePath, setModelDimensions }) => {
     const [model, setModel] = useState<THREE.Mesh | undefined>();
 
     useEffect(() => {
@@ -28,6 +29,13 @@ const STLModel: React.FC<ModelProps> = ({ modelPath, texturePath }) => {
             mesh.position.sub(boxCenter);
 
             setModel(mesh);
+
+            const dimensions = {
+                width: boundingBox.max.x - boundingBox.min.x,
+                height: boundingBox.max.y - boundingBox.min.y,
+                depth: boundingBox.max.z - boundingBox.min.z
+            };
+            setModelDimensions(dimensions);
         });
     }, [modelPath, texturePath]);
 
