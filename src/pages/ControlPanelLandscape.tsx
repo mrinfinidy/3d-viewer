@@ -74,9 +74,8 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
                 />
                 <Text fontSize="sm" colorScheme="gray">
                     *File type must be .glb, .obj, or .stl
-
                 </Text>
-                <Text fontSize="md" colorScheme="gray" mt={2}>
+                <Text fontSize="md" fontStyle="italic" as="samp" colorScheme="gray" mt={2}>
                     {modelName}
                 </Text>
                 <Flex
@@ -94,22 +93,33 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
                         />
                     }
                 </Flex>
-                <Flex
-                    justify="center"
-                    align="center"
-                    direction="column"
-                    mt={2}
-                >
-                    <Text fontSize="md" colorScheme="gray" mt={2}>
-                        { modelDimensions && "Width: " + modelDimensions.width } 
-                    </Text>
-                    <Text fontSize="md" colorScheme="gray" mt={2}>
-                        { modelDimensions && "Height: " + modelDimensions.height }
-                    </Text>
-                    <Text fontSize="md" colorScheme="gray" mt={2}>
-                        { modelDimensions && "Depth: " + modelDimensions.depth }
-                    </Text>
-                </Flex>
+                { modelDimensions &&
+                    <Flex
+                        justify="center"
+                        align="center"
+                        direction="column"
+                        mt={2}
+                    >
+                        <Text fontSize="md" colorScheme="gray" as="b" mt={2}>
+                            Width:
+                        </Text>
+                        <Text fontSize="md" colorScheme="gray">
+                            { modelDimensions.width } 
+                        </Text>
+                        <Text fontSize="md" colorScheme="gray" as="b" mt={2}>
+                            Height: 
+                        </Text>
+                        <Text fontSize="md" colorScheme="gray" >
+                            { modelDimensions.height }
+                        </Text>
+                        <Text fontSize="md" colorScheme="gray" as="b" mt={2}>
+                            Depth:
+                        </Text>
+                        <Text fontSize="md" colorScheme="gray" >
+                            { modelDimensions.depth }
+                        </Text>
+                    </Flex>
+                }
             </Flex>
         </Box>
     )
