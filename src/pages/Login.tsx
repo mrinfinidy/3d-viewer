@@ -25,7 +25,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
     const [alertMessage, setAlertMessage] = React.useState('');
 
     const submitLogin = (username: string, password: string) => {
-        loginSuccess();
+        // loginSuccess();
         if (username && password) {
             // setAlertTitle('Success');
             // setAlertMessage('Login successful');
