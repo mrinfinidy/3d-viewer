@@ -1,4 +1,4 @@
-import { Box, Button, Input, Flex, useColorModeValue, Text } from '@chakra-ui/react'
+import { Box, Button, Input, Flex, useColorModeValue, Text, Image } from '@chakra-ui/react'
 import FileBrowser from '../components/file-browser';
 import { useEffect, useRef } from 'react';
 
@@ -120,6 +120,11 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
                         </Text>
                     </Flex>
                 }
+                <Image
+                    src="/box-logo.png"
+                    alt="Box Logo"
+                    mt={2}
+                />
             </Flex>
         </Box>
     )
