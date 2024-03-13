@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import MyAlert from '../components/my-alert';
 import ThemeToggleButton from '../components/theme-toggle-button';
+import axios from 'axios';
 
 interface LoginProps {
     loginSuccess: () => void;
@@ -24,15 +25,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
     const [alertTitle, setAlertTitle] = React.useState('');
     const [alertMessage, setAlertMessage] = React.useState('');
 
-    const submitLogin = (username: string, password: string) => {
-        // loginSuccess();
-        if (username && password) {
-            // setAlertTitle('Success');
-            // setAlertMessage('Login successful');
-            // setMyAlertOpen(true);
-            loginSuccess();
-        }
-
+    const submitLogin = async (username: string, password: string) => {
         if (!username && !password) {
             setAlertTitle('Error');
             setAlertMessage('Username and password are required');
@@ -49,6 +42,27 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
             setAlertTitle('Error');
             setAlertMessage('Password is required');
             setMyAlertOpen(true);
+        }
+
+        if (username && password) {
+            try {
+                const response = await axios.post('http://localhost:5000/login', {
+                    username,
+                    password
+                });
+
+                if (response.data === 'ok') {
+                    loginSuccess();
+                }
+
+                if (response.data === 'fail') {
+                    setAlertTitle('Error');
+                    setAlertMessage('Invalid username or password');
+                    setMyAlertOpen(true);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
     }
 
