@@ -119,6 +119,13 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                 >
                     Login
                 </Button>
+                <Button 
+                    colorScheme="pink" 
+                    mb={3}
+                    onClick={() => submitLogin(username, password)}
+                >
+                    Register
+                </Button>
                 <MyAlert
                     title={alertTitle}
                     message={alertMessage}
