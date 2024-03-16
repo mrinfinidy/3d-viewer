@@ -11,6 +11,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import MyAlert from '../components/my-alert';
+import Registration from '../components/registration';
 import ThemeToggleButton from '../components/theme-toggle-button';
 import axios from 'axios';
 
@@ -22,6 +23,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isMyAlertOpen, setMyAlertOpen] = React.useState(false);
+    const [isRegistrationOpen, setRegistrationOpen] = React.useState(false);
     const [alertTitle, setAlertTitle] = React.useState('');
     const [alertMessage, setAlertMessage] = React.useState('');
 
@@ -66,11 +68,12 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
         }
     }
 
-    const closeModal = () => {
-        setMyAlertOpen(false);
-    }
+    const openRegistration = () => {
+        setRegistrationOpen(true);
+    } 
 
     const formBackground = useColorModeValue('pink.100', 'gray.700');
+    const focusBorderColor = useColorModeValue('pink.600', 'pink.100');
 
     return (
         <>
@@ -87,6 +90,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     placeholder="username"
                     variant="filled"
                     mb={3}
+                    focusBorderColor={focusBorderColor}
                     onChange={(e) => setUsername(e.target.value)}
                     onKeyPress={(e) => {
                         if (e.key === 'Enter') {
@@ -100,6 +104,7 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     type="password"
                     variant="filled"
                     mb={6}
+                    focusBorderColor={focusBorderColor}
                     onChange={(e) => setPassword(e.target.value)}
                     onKeyPress={(e) => {
                         if (e.key === 'Enter') {
@@ -122,15 +127,19 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                 <Button 
                     colorScheme="pink" 
                     mb={3}
-                    onClick={() => submitLogin(username, password)}
+                    onClick={() => openRegistration()}
                 >
                     Register
                 </Button>
+                <Registration
+                    isOpen={isRegistrationOpen}
+                    onClose={() => setRegistrationOpen(false)}
+                />
                 <MyAlert
                     title={alertTitle}
                     message={alertMessage}
                     isOpen={isMyAlertOpen}
-                    onClose={closeModal}
+                    onClose={() => setMyAlertOpen(false)}
                 />
             </Flex>
         </Flex>
