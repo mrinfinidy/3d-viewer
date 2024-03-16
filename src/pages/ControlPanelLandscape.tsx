@@ -20,6 +20,7 @@ interface ControlPanelProps {
         height: number;
         depth: number;
     } | null;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
 const ControlPanelLandscape: React.FC<ControlPanelProps> = ({ 
@@ -29,7 +30,8 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
     loadTexturePath,
     modelName,
     modelType,
-    modelDimensions
+    modelDimensions,
+    setIsLoggedIn
 }) => {
 
     if (modelName === null) {
@@ -125,6 +127,13 @@ const ControlPanelLandscape: React.FC<ControlPanelProps> = ({
                     alt="Box Logo"
                     mt={2}
                 />
+                <Button
+                    onClick={() => setIsLoggedIn(false)}
+                    mt={2}
+                    colorScheme="pink"
+                >
+                    Log Out
+                </Button>
             </Flex>
         </Box>
     )

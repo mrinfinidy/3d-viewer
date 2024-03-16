@@ -14,7 +14,11 @@ import useCheckOrientationVertical from '../components/check-screen-orientation'
 import BackgroundTogglerButton from '../components/background-toggler-button';
 import { Stars } from '@react-three/drei';
 
-const Viewport = () => {
+interface ViewportProps {
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Viewport: React.FC<ViewportProps> = ({ setIsLoggedIn }) => {
 
     // Background Toggler
     const [backgroundOn, setBackgroundOn] = React.useState<boolean>(false);
@@ -119,6 +123,7 @@ const Viewport = () => {
                     modelName={modelName}
                     modelType={modelType}
                     modelDimensions={modelDimensions}
+                    setIsLoggedIn={setIsLoggedIn}
                 /> :
                 <ControlPanelLandscape
                     modelInputRef={modelInputRef}
@@ -128,6 +133,7 @@ const Viewport = () => {
                     modelName={modelName}
                     modelType={modelType}
                     modelDimensions={modelDimensions}
+                    setIsLoggedIn={setIsLoggedIn}
                 /> 
             }
             <Flex
