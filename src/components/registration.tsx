@@ -7,7 +7,6 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    Flex,
     Input,
     FormControl,
     FormHelperText,
@@ -77,16 +76,34 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 }) => {
     const focusBorderColor = useColorModeValue('pink.600', 'pink.100');
 
-    const usernameInvalid = username === ''
-    const passwordInvalid = password === ''
-    const confirmPasswordInvalid = confirmPassword === ''
+    const [usernameInvalid, setUsernameInvalid] = useState(false);
+    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    const [confirmPasswordInvalid, setConfirmPasswordInvalid] = useState(false);
+
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const updatedUsername = e.target.value;
+        setUsername(updatedUsername);
+        setUsernameInvalid(updatedUsername === '');
+    }
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const updatedPassword = e.target.value;
+        setPassword(updatedPassword);
+        setPasswordInvalid(updatedPassword === '');
+    }
+
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const updatedConfirmPassword = e.target.value;
+        setConfirmPassword(updatedConfirmPassword);
+        setConfirmPasswordInvalid(updatedConfirmPassword === '' || updatedConfirmPassword !== password);
+    }
         
     return (
         <>
             <FormControl isInvalid={usernameInvalid} isRequired>
                 {usernameInvalid ? (
                     <FormErrorMessage>
-                        Username is required
+                        Username
                     </FormErrorMessage>
                 ) : (
                     <FormHelperText>
@@ -94,15 +111,15 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     </FormHelperText>
                 )}
                 <Input
+                    type="text"
                     placeholder="username"
                     variant="filled"
                     mb={3}
                     focusBorderColor={focusBorderColor}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={handleUsernameChange}
                     onKeyPress={(e) => {
                         submitRegistration(username, password, confirmPassword);
                     }}
-                    type="text"
                 />  
             </FormControl>
             <FormControl isInvalid={passwordInvalid} isRequired>
@@ -112,15 +129,16 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                     </FormErrorMessage>
                 ) : (
                     <FormHelperText>
-                        Enter a password
+                        Password
                     </FormHelperText>
                 )}      
                 <Input
+                    type="password"
                     placeholder="password"
                     variant="filled"
                     mb={3}
                     focusBorderColor={focusBorderColor}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange}
                     onKeyPress={(e) => {
                         submitRegistration(username, password, confirmPassword);
                     }}
@@ -129,19 +147,20 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             <FormControl isInvalid={confirmPasswordInvalid} isRequired>
                 {confirmPasswordInvalid ? (
                     <FormErrorMessage>
-                        Confirm Password is required
+                        Passwords do not match
                     </FormErrorMessage>
                 ) : (
                     <FormHelperText>
-                        Confirm your password
+                        Confirm Password
                     </FormHelperText>
                 )}
                 <Input
+                    type="password"
                     placeholder="confirm password"
                     variant="filled"
                     mb={3}
                     focusBorderColor={focusBorderColor}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={handleConfirmPasswordChange}
                     onKeyPress={(e) => {
                         submitRegistration(username, password, confirmPassword);
                     }}
