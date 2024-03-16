@@ -103,11 +103,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             <FormControl isInvalid={usernameInvalid} isRequired>
                 {usernameInvalid ? (
                     <FormErrorMessage>
-                        Username
+                        Username is required
                     </FormErrorMessage>
                 ) : (
                     <FormHelperText>
-                        Enter a username
+                        Username
                     </FormHelperText>
                 )}
                 <Input
