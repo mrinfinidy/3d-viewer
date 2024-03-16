@@ -11,7 +11,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import MyAlert from '../components/my-alert';
-import Registration from '../components/registration';
+import Registration from './Registration';
 import ThemeToggleButton from '../components/theme-toggle-button';
 import axios from 'axios';
 
@@ -63,7 +63,9 @@ const Login: React.FC<LoginProps> = ({ loginSuccess }) => {
                     setMyAlertOpen(true);
                 }
             } catch (error) {
-                console.error('Error:', error);
+                setAlertTitle('Error');
+                setAlertMessage(`Error logging in. ${error}`);
+                setMyAlertOpen(true);
             }
         }
     }
